@@ -1,0 +1,524 @@
+gh actions-importer configure
+✔ Which CI providers are you configuring?: Bitbucket
+Enter the following values (leave empty to omit):
+✔ Personal access token for GitHub: ****************************************
+✔ Base url of the GitHub instance: https://github.com
+✔ Personal access token for Bitbucket: ************************************************************************************************************************************************************************************************
+Environment variables successfully updated.
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer update
+Please ensure docker is installed and the docker daemon is running
+[ec2-user@ip-172-31-44-165 ~]$ sysctl
+Display all 981 possibilities? (y or n)
+[ec2-user@ip-172-31-44-165 ~]$ sysctl status docker
+sysctl: cannot stat /proc/sys/status: No such file or directory
+sysctl: cannot stat /proc/sys/docker: No such file or directory
+[ec2-user@ip-172-31-44-165 ~]$ sudo systemctl status docker
+○ docker.service - Docker Application Container Engine
+     Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; preset: disabled)
+     Active: inactive (dead)
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+[ec2-user@ip-172-31-44-165 ~]$ sudo systemctl start docker
+[ec2-user@ip-172-31-44-165 ~]$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/usr/lib/systemd/system/docker.service; disabled; preset: disabled)
+     Active: active (running) since Wed 2024-04-10 20:01:59 UTC; 3s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+    Process: 5873 ExecStartPre=/bin/mkdir -p /run/docker (code=exited, status=0/SUCCESS)
+    Process: 5874 ExecStartPre=/usr/libexec/docker/docker-setup-runtimes.sh (code=exited, status=0/SUCCESS)
+   Main PID: 5875 (dockerd)
+      Tasks: 8
+     Memory: 110.4M
+        CPU: 442ms
+     CGroup: /system.slice/docker.service
+             └─5875 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --default-ulimit nofile=32768:65536
+
+Apr 10 20:01:58 ip-172-31-44-165.eu-north-1.compute.internal systemd[1]: Starting docker.service - Docker Application Container Engi>
+Apr 10 20:01:58 ip-172-31-44-165.eu-north-1.compute.internal dockerd[5875]: time="2024-04-10T20:01:58.776280309Z" level=info msg="St>
+Apr 10 20:01:58 ip-172-31-44-165.eu-north-1.compute.internal dockerd[5875]: time="2024-04-10T20:01:58.922517387Z" level=info msg="[g>
+Apr 10 20:01:58 ip-172-31-44-165.eu-north-1.compute.internal dockerd[5875]: time="2024-04-10T20:01:58.957014502Z" level=info msg="Lo>
+Apr 10 20:01:59 ip-172-31-44-165.eu-north-1.compute.internal dockerd[5875]: time="2024-04-10T20:01:59.641671418Z" level=info msg="De>
+Apr 10 20:01:59 ip-172-31-44-165.eu-north-1.compute.internal dockerd[5875]: time="2024-04-10T20:01:59.704831650Z" level=info msg="Lo>
+Apr 10 20:01:59 ip-172-31-44-165.eu-north-1.compute.internal dockerd[5875]: time="2024-04-10T20:01:59.751823187Z" level=info msg="Do>
+Apr 10 20:01:59 ip-172-31-44-165.eu-north-1.compute.internal dockerd[5875]: time="2024-04-10T20:01:59.753149344Z" level=info msg="Da>
+Apr 10 20:01:59 ip-172-31-44-165.eu-north-1.compute.internal dockerd[5875]: time="2024-04-10T20:01:59.852454883Z" level=info msg="AP>
+Apr 10 20:01:59 ip-172-31-44-165.eu-north-1.compute.internal systemd[1]: Started docker.service - Docker Application Container Engin>
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer update
+Please ensure docker is installed and the docker daemon is running
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer audit bitbucket --workspace :Terraform --project-key :EM --output-dir tmp/audit
+Please ensure docker is installed and the docker daemon is running
+[ec2-user@ip-172-31-44-165 ~]$ sudo gh actions-importer audit bitbucket --workspace :Terraform --project-key :EM --output-dir tmp/aud
+it
+unknown command "actions-importer" for "gh"
+
+Usage:  gh <command> <subcommand> [flags]
+
+Available commands:
+  alias
+  api
+  auth
+  browse
+  codespace
+  completion
+  config
+  extension
+  gist
+  gpg-key
+  help
+  issue
+  label
+  pr
+  release
+  repo
+  run
+  search
+  secret
+  ssh-key
+  status
+  workflow
+
+[ec2-user@ip-172-31-44-165 ~]$  gh actions-importer -h
+Description:
+  GitHub Actions Importer helps you plan, test, and automate your migration to GitHub Actions.
+
+  Please share your feedback @ https://gh.io/ghaimporterfeedback
+
+Options:
+  -?, -h, --help  Show help and usage information
+
+Commands:
+  update         Update to the latest version of GitHub Actions Importer.
+  version        Display the current version of GitHub Actions Importer.
+  configure      Start an interactive prompt to configure credentials used to authenticate with your CI server(s).
+  audit          Plan your CI/CD migration by analyzing your current CI/CD footprint.
+  forecast       Forecast GitHub Actions usage from historical pipeline utilization.
+  dry-run        Convert a pipeline to a GitHub Actions workflow and output its yaml file.
+  migrate        Convert a pipeline to a GitHub Actions workflow and open a pull request with the changes.
+  list-features  List the available feature flags for GitHub Actions Importer.
+
+[ec2-user@ip-172-31-44-165 ~]$ sudo  gh actions-importer -h
+unknown command "actions-importer" for "gh"
+
+Usage:  gh <command> <subcommand> [flags]
+
+Available commands:
+  alias
+  api
+  auth
+  browse
+  codespace
+  completion
+  config
+  extension
+  gist
+  gpg-key
+  help
+  issue
+  label
+  pr
+  release
+  repo
+  run
+  search
+  secret
+  ssh-key
+  status
+  workflow
+
+[ec2-user@ip-172-31-44-165 ~]$ whoami
+ec2-user
+[ec2-user@ip-172-31-44-165 ~]$ ls -lrt
+total 8036
+-rw-r--r--. 1 ec2-user ec2-user 8047707 Sep  6  2022 gh_2.15.0_linux_amd64.rpm
+drwxr-xr-x. 3 ec2-user ec2-user     101 Apr  8 17:19 bitrunnnier
+drwxr-xr-x. 4 ec2-user ec2-user     192 Apr  8 17:23 publisher
+-rw-r--r--. 1 ec2-user ec2-user  179368 Apr 10 18:14 v2.47.0
+[ec2-user@ip-172-31-44-165 ~]$ sudo cat /etc/group
+root:x:0:
+bin:x:1:
+daemon:x:2:
+sys:x:3:
+adm:x:4:ec2-user
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mem:x:8:
+kmem:x:9:
+wheel:x:10:ec2-user
+cdrom:x:11:
+mail:x:12:
+man:x:15:
+dialout:x:18:
+floppy:x:19:
+games:x:20:
+tape:x:33:
+video:x:39:
+ftp:x:50:
+lock:x:54:
+audio:x:63:
+users:x:100:
+nobody:x:65534:
+utmp:x:22:
+utempter:x:35:
+dbus:x:81:
+input:x:104:
+kvm:x:36:
+render:x:105:
+sgx:x:106:
+systemd-journal:x:190:ec2-user
+systemd-network:x:192:
+systemd-oom:x:999:
+systemd-resolve:x:193:
+ssh_keys:x:998:
+sshd:x:74:
+rpc:x:32:
+libstoragemgmt:x:997:
+systemd-coredump:x:996:
+systemd-timesync:x:995:
+chrony:x:994:
+ec2-instance-connect:x:993:
+stapusr:x:156:
+stapsys:x:157:
+stapdev:x:158:
+rpcuser:x:29:
+tcpdump:x:72:
+screen:x:84:
+ec2-user:x:1000:
+docker:x:992:
+[ec2-user@ip-172-31-44-165 ~]$ sudo usermod -aG docker $USER
+[ec2-user@ip-172-31-44-165 ~]$ docker ps
+permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/json": dial unix /var/run/docker.sock: connect: permission denied
+[ec2-user@ip-172-31-44-165 ~]$ newgrp docker
+[ec2-user@ip-172-31-44-165 ~]$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer update
+Updating ghcr.io/actions-importer/cli:latest...
+ghcr.io/actions-importer/cli:latest up-to-date
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer audit bitbucket --workspace :Terraform  --project-key :EM --output-dir tmp/audit
+[2024-04-10 20:31:44] Logs: 'tmp/audit/log/valet-20240410-203144.log'
+[2024-04-10 20:31:44] Auditing 'https://bitbucket.org/:Terraform/workspace/projects/:EM'
+[2024-04-10 20:31:45] There was an error extracting pipelines from Bitbucket
+                      Message: Resource not found
+                      (GET 404) Not Found: https://api.bitbucket.org/2.0/repositories/:Terraform?q=project.key%3D%22%3AEM%22
+Extracting all pipelines: |=---=---=---=---=---=---=---=---=---=---=---=---=---|
+[ec2-user@ip-172-31-44-165 ~]$ cd /tmp/audit/log
+bash: cd: /tmp/audit/log: No such file or directory
+[ec2-user@ip-172-31-44-165 ~]$ ls
+bitrunnnier  gh_2.15.0_linux_amd64.rpm  publisher  tmp  v2.47.0
+[ec2-user@ip-172-31-44-165 ~]$ cd tmp
+[ec2-user@ip-172-31-44-165 tmp]$ cd log
+bash: cd: log: No such file or directory
+[ec2-user@ip-172-31-44-165 tmp]$ ls
+audit
+[ec2-user@ip-172-31-44-165 tmp]$ cd audit/log/
+[ec2-user@ip-172-31-44-165 log]$ ls
+valet-20240410-203144.log
+[ec2-user@ip-172-31-44-165 log]$ cat valet-20240410-203144.log
+# Logfile created on 2024-04-10 20:31:44 +0000 by logger.rb/v1.5.3
+I, [2024-04-10T20:31:44.551495 #1]  INFO -- : Using GitHub Features: Defaults
+I, [2024-04-10T20:31:44.551551 #1]  INFO -- : Auditing 'https://bitbucket.org/:Terraform/workspace/projects/:EM'
+I, [2024-04-10T20:31:44.600329 #1]  INFO -- request: GET https://api.bitbucket.org/2.0/repositories/:Terraform?q=project.key%3D%22%3AEM%22
+I, [2024-04-10T20:31:45.166248 #1]  INFO -- response: Status 404
+I, [2024-04-10T20:31:45.175589 #1]  INFO -- request: GET https://api.github.com/user
+I, [2024-04-10T20:31:45.425679 #1]  INFO -- response: Status 200
+I, [2024-04-10T20:31:45.427458 #1]  INFO -- : Sending telemetry with transaction id '93310961-9173-4c5b-983d-6cca96ccbccf'
+E, [2024-04-10T20:31:45.803622 #1] ERROR -- : There was an error extracting pipelines from Bitbucket
+Message: Resource not found
+(GET 404) Not Found: https://api.bitbucket.org/2.0/repositories/:Terraform?q=project.key%3D%22%3AEM%22
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/services/bitbucket/parse_response.rb:19:in `parse!'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `bind_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `validate_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/_methods.rb:275:in `block in _on_method_added'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/adapters/bitbucket/client.rb:116:in `fetch'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `bind_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `validate_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/_methods.rb:275:in `block in _on_method_added'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/adapters/bitbucket/client.rb:130:in `paginated_fetch'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `bind_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `validate_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/_methods.rb:275:in `block in _on_method_added'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/adapters/bitbucket/client.rb:33:in `fetch_repositories'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `bind_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `validate_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/_methods.rb:275:in `block in _on_method_added'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/services/bitbucket/extract_all_pipelines.rb:39:in `pipelines_from_client'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `bind_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `validate_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/_methods.rb:275:in `block in _on_method_added'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/services/bitbucket/extract_all_pipelines.rb:17:in `call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `bind_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `validate_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/_methods.rb:275:in `block in _on_method_added'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/adapters/provider_resolver.rb:66:in `call'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/commands/audit.rb:16:in `block in call'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/logger.rb:96:in `with_progress_bar'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/commands/audit.rb:15:in `call'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/subcommands/audit.rb:178:in `bitbucket'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/invocation.rb:116:in `invoke'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor.rb:243:in `block in subcommand'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+/usr/local/bundle/gems/actions_importer-1.3.22008/exe/actions-importer:19:in `<top (required)>'
+/usr/local/bundle/bin/actions-importer:25:in `load'
+/usr/local/bundle/bin/actions-importer:25:in `<main>'
+[ec2-user@ip-172-31-44-165 log]$ cd
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer audit bitbucket --workspace :Terraform  --project-key EM --output-dir tmp/audit
+[2024-04-10 20:35:18] Logs: 'tmp/audit/log/valet-20240410-203518.log'
+[2024-04-10 20:35:18] Auditing 'https://bitbucket.org/:Terraform/workspace/projects/EM'
+[2024-04-10 20:35:19] There was an error extracting pipelines from Bitbucket
+                      Message: Resource not found
+                      (GET 404) Not Found: https://api.bitbucket.org/2.0/repositories/:Terraform?q=project.key%3D%22EM%22
+Extracting all pipelines: |=---=---=---=---=---=---=---=---=---=---=---=---=---|
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer audit bitbucket --workspace Terraform  --project-key EM --output-dir tmp/audit
+[2024-04-10 20:46:42] Logs: 'tmp/audit/log/valet-20240410-204642.log'
+[2024-04-10 20:46:42] Auditing 'https://bitbucket.org/Terraform/workspace/projects/EM'
+[2024-04-10 20:46:43] No repositories found for workspace Terraform
+Extracting all pipelines: |=---=---=---=---=---=---=---=---=---=---=---=---=---|
+[ec2-user@ip-172-31-44-165 ~]$ cd
+[ec2-user@ip-172-31-44-165 ~]$ ls
+bitrunnnier  gh_2.15.0_linux_amd64.rpm  publisher  tmp  v2.47.0
+[ec2-user@ip-172-31-44-165 ~]$ cd tmp
+[ec2-user@ip-172-31-44-165 tmp]$ cd audit/log/
+[ec2-user@ip-172-31-44-165 log]$ ls
+valet-20240410-203144.log  valet-20240410-203518.log  valet-20240410-204642.log
+[ec2-user@ip-172-31-44-165 log]$ ls -lrt
+total 20
+-rw-r--r--. 1 root root 5086 Apr 10 20:31 valet-20240410-203144.log
+-rw-r--r--. 1 root root 5079 Apr 10 20:35 valet-20240410-203518.log
+-rw-r--r--. 1 root root 3098 Apr 10 20:46 valet-20240410-204642.log
+[ec2-user@ip-172-31-44-165 log]$ cat valet-20240410-204642.log
+# Logfile created on 2024-04-10 20:46:42 +0000 by logger.rb/v1.5.3
+I, [2024-04-10T20:46:42.256796 #1]  INFO -- : Using GitHub Features: Defaults
+I, [2024-04-10T20:46:42.256854 #1]  INFO -- : Auditing 'https://bitbucket.org/Terraform/workspace/projects/EM'
+I, [2024-04-10T20:46:42.312108 #1]  INFO -- request: GET https://api.bitbucket.org/2.0/repositories/Terraform?q=project.key%3D%22EM%22
+I, [2024-04-10T20:46:42.955950 #1]  INFO -- response: Status 200
+I, [2024-04-10T20:46:42.964572 #1]  INFO -- request: GET https://api.github.com/user
+I, [2024-04-10T20:46:43.190658 #1]  INFO -- response: Status 200
+I, [2024-04-10T20:46:43.193533 #1]  INFO -- : Sending telemetry with transaction id '871dc7eb-e9e6-422e-9a45-d8f59f210209'
+E, [2024-04-10T20:46:43.549188 #1] ERROR -- : No repositories found for workspace Terraform
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/services/bitbucket/extract_all_pipelines.rb:42:in `pipelines_from_client'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `bind_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `validate_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/_methods.rb:275:in `block in _on_method_added'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/services/bitbucket/extract_all_pipelines.rb:17:in `call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `bind_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/call_validation.rb:256:in `validate_call'
+/usr/local/bundle/gems/sorbet-runtime-0.5.11108/lib/types/private/methods/_methods.rb:275:in `block in _on_method_added'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/adapters/provider_resolver.rb:66:in `call'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/commands/audit.rb:16:in `block in call'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/logger.rb:96:in `with_progress_bar'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/commands/audit.rb:15:in `call'
+/usr/local/bundle/gems/actions_importer-1.3.22008/lib/valet/subcommands/audit.rb:178:in `bitbucket'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/invocation.rb:116:in `invoke'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor.rb:243:in `block in subcommand'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+/usr/local/bundle/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+/usr/local/bundle/gems/actions_importer-1.3.22008/exe/actions-importer:19:in `<top (required)>'
+/usr/local/bundle/bin/actions-importer:25:in `load'
+/usr/local/bundle/bin/actions-importer:25:in `<main>'
+[ec2-user@ip-172-31-44-165 log]$ cd
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer audit bitbucket --workspace bhargav-terraform --project-key :EM --output-dir tmp/a
+udit
+[2024-04-10 21:02:56] Logs: 'tmp/audit/log/valet-20240410-210256.log'
+[2024-04-10 21:02:56] Auditing 'https://bitbucket.org/bhargav-terraform/workspace/projects/:EM'
+[2024-04-10 21:02:58] No repositories found for workspace bhargav-terraform
+Extracting all pipelines: |=---=---=---=---=---=---=---=---=---=---=---=---=---|
+[ec2-user@ip-172-31-44-165 ~]$ gh actions-importer audit bitbucket --workspace bhargav-terraform --project-key EM --output-dir tmp/au
+dit
+[2024-04-10 21:03:23] Logs: 'tmp/audit/log/valet-20240410-210323.log'
+[2024-04-10 21:03:23] Auditing 'https://bitbucket.org/bhargav-terraform/workspace/projects/EM'
+[2024-04-10 21:03:30] Output file(s):==========================================|
+[2024-04-10 21:03:30]   tmp/audit/bhargav-terraform/subscriber/.github/workflows/default.yml
+[2024-04-10 21:03:30]   tmp/audit/bhargav-terraform/subscriber/config.json
+[2024-04-10 21:03:30]   tmp/audit/bhargav-terraform/subscriber/source.yml
+[2024-04-10 21:03:30]   tmp/audit/workflow_usage.csv
+[2024-04-10 21:03:30]   tmp/audit/audit_summary.md
+[ec2-user@ip-172-31-44-165 ~]$ -=---=---=---=---=---=---=---=---=---=---=---=--|
+[ec2-user@ip-172-31-44-165 ~]$
+[ec2-user@ip-172-31-44-165 ~]$ cd tmp
+[ec2-user@ip-172-31-44-165 tmp]$ ls
+audit
+[ec2-user@ip-172-31-44-165 tmp]$ cd audit/
+[ec2-user@ip-172-31-44-165 audit]$ ls
+audit_summary.md  bhargav-terraform  log  workflow_usage.csv
+[ec2-user@ip-172-31-44-165 audit]$ cd bhargav-terraform/
+[ec2-user@ip-172-31-44-165 bhargav-terraform]$ ls
+subscriber
+[ec2-user@ip-172-31-44-165 bhargav-terraform]$ cd subscriber/
+[ec2-user@ip-172-31-44-165 subscriber]$ ls
+config.json  source.yml
+[ec2-user@ip-172-31-44-165 subscriber]$ cat config.json
+{
+  "image": "atlassian/default-image:3",
+  "pipelines": {
+    "default": [
+      {
+        "parallel": [
+          {
+            "step": {
+              "runs-on": [
+                "self.hosted",
+                "linux.shell"
+              ],
+              "name": "Build and Test",
+              "script": [
+                "export IMAGE_NAME=bhargavnaidu0498/publisher:$BITBUCKET_COMMIT",
+                "sudo docker build . --file Dockerfile --tag ${IMAGE_NAME}",
+                "sudo docker login --username $docker_username --password $docker_password",
+                "sudo docker push $IMAGE_NAME"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}[ec2-user@ip-172-31-44-165 subscriber]$ cat source.yml
+{"image"=>"atlassian/default-image:3", "pipelines"=>{"default"=>[{"parallel"=>[{"step"=>{"runs-on"=>["self.hosted", "linux.shell"], "name"=>"Build and Test", "script"=>["export IMAGE_NAME=bhargavnaidu0498/publisher:$BITBUCKET_COMMIT", "sudo docker build . --file Dockerfile --tag ${IMAGE_NAME}", "sudo docker login --username $docker_username --password $docker_password", "sudo docker push $IMAGE_NAME"]}}]}]}}[ec2-user@ip-172-31-44-165 subscriber]$
+[ec2-user@ip-172-31-44-165 subscriber]$
+[ec2-user@ip-172-31-44-165 subscriber]$ ls
+config.json  source.yml
+[ec2-user@ip-172-31-44-165 subscriber]$ cd ..
+[ec2-user@ip-172-31-44-165 bhargav-terraform]$ ls
+subscriber
+[ec2-user@ip-172-31-44-165 bhargav-terraform]$ cd ..
+[ec2-user@ip-172-31-44-165 audit]$ ls
+audit_summary.md  bhargav-terraform  log  workflow_usage.csv
+[ec2-user@ip-172-31-44-165 audit]$ cat audit_summary.md
+# Audit summary
+
+Summary for [Bitbucket instance](https://bitbucket.org/bhargav-terraform/workspace/projects/EM)
+
+- GitHub Actions Importer version: **1.3.22008 (bec40afcfa0043aabda7d5d6a12d86ee82551a4b)**
+- Performed at: **4/10/24 at 21:03**
+
+## Pipelines
+
+Total: **1**
+
+- Successful: **1 (100%)**
+- Partially successful: **0 (0%)**
+- Unsupported: **0 (0%)**
+- Failed: **0 (0%)**
+
+### Job types
+
+Supported: **1 (100%)**
+
+- YAML: **1**
+
+### Build steps
+
+Total: **1**
+
+Known: **1 (100%)**
+
+- script: **1**
+
+Actions: **2**
+
+- run: **1**
+- actions/checkout@v4.1.0: **1**
+
+### Triggers
+
+Total: **1**
+
+Known: **1 (100%)**
+
+- default: **1**
+
+Actions: **1**
+
+- push: **1**
+
+### Environment
+
+Total: **2**
+
+Known: **2 (100%)**
+
+- docker_password: **1**
+- docker_username: **1**
+
+Actions: **2**
+
+- docker_password: **1**
+- docker_username: **1**
+
+### Other
+
+Total: **0**
+
+### Manual tasks
+
+Total: **3**
+
+Secrets: **2**
+
+- `${{ secrets.docker_username }}`: **1**
+- `${{ secrets.docker_password }}`: **1**
+
+Self hosted runners: **1**
+
+- `linux.shell`: **1**
+
+### Successful
+
+#### bhargav-terraform/subscriber
+
+- [bhargav-terraform/subscriber/.github/workflows/default.yml](bhargav-terraform/subscriber/.github/workflows/default.yml)
+- [bhargav-terraform/subscriber/config.json](bhargav-terraform/subscriber/config.json)
+- [bhargav-terraform/subscriber/source.yml](bhargav-terraform/subscriber/source.yml)
+[ec2-user@ip-172-31-44-165 audit]$ ls
+audit_summary.md  bhargav-terraform  log  workflow_usage.csv
+[ec2-user@ip-172-31-44-165 audit]$ cd bhargav-terraform/
+[ec2-user@ip-172-31-44-165 bhargav-terraform]$ cd .github
+bash: cd: .github: No such file or directory
+[ec2-user@ip-172-31-44-165 bhargav-terraform]$ ls
+subscriber
+[ec2-user@ip-172-31-44-165 bhargav-terraform]$ cd subscriber/.github/
+[ec2-user@ip-172-31-44-165 .github]$ ;ls
+bash: syntax error near unexpected token `;'
+[ec2-user@ip-172-31-44-165 .github]$ ls
+workflows
+[ec2-user@ip-172-31-44-165 .github]$ cd workflows/
+[ec2-user@ip-172-31-44-165 workflows]$ ls
+default.yml
+[ec2-user@ip-172-31-44-165 workflows]$ cat default.yml
+name: default
+on:
+  push:
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  parallel_job_1:
+    runs-on:
+      - self-hosted
+      - linux.shell
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - name: Build and Test
+      run: |-
+        export IMAGE_NAME=bhargavnaidu0498/publisher:${{ github.sha }}
+        sudo docker build . --file Dockerfile --tag ${IMAGE_NAME}
+        sudo docker login --username ${{ env.docker_username }} --password ${{ env.docker_password }}
+        sudo docker push $IMAGE_NAME
+[ec2-user@ip-172-31-44-165 workflows]$ client_loop: send disconnect: Broken pipe
+bhargav@DESKTOP-S6L045R:~/bitrunnier$ d
+cdd: command not found
+bhargav@DESKTOP-S6L045R:~/bitrunnier$ cd
+bhargav@DESKTOP-S6L045R:~$
+bhargav@DESKTOP-S6L045R:~$
