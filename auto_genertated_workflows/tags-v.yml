@@ -1,0 +1,14 @@
+name: tags-v
+on:
+  push:
+    tags: v*
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  step_job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - run: echo "Run with version tags created"
+      timeout-minutes: 120

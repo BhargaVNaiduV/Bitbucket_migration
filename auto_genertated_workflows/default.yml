@@ -1,0 +1,104 @@
+name: default
+on:
+  push:
+    branches:
+    - "!master"
+    - "!fix/*"
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  step_job_1:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.8.0-slim
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - name: Cache pip
+      uses: actions/cache@v3.3.2
+      with:
+        key: "${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}"
+        path: "~/.cache/pip"
+    - name: Cache npm
+      uses: actions/cache@v3.3.2
+      with:
+        key: UPDATE_ME
+        path: UPDATE_ME
+    - name: Install dependencies & show Python version
+      run: |-
+        pip install -r requirements.txt
+        python --version
+      timeout-minutes: 120
+  step_job_2:
+    runs-on: ubuntu-latest
+    environment:
+      name: approval_required
+    needs:
+    - step_job_1
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - name: Manual step
+      run: echo "Waits for a manual trigger before running."
+      timeout-minutes: 120
+  step_job_3:
+    runs-on: ubuntu-latest
+    needs:
+    - step_job_2
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - uses: slackapi/slack-github-action@v1.24.0
+      env:
+        SLACK_WEBHOOK_URL: Incoming Webhook URL. It is recommended to use a secure repository variable.
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      with:
+        payload: "{\n  \"blocks\": [\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": \n      }\n    },\n    {\n      \"type\": \"divider\"\n    },\n    {\n      \"type\": \"section\",\n      \"text\": {\n        \"type\": \"mrkdwn\",\n        \"text\": Notification message.\n      }\n    }\n  ]\n}\n"
+      timeout-minutes: 120
+  step_job_4:
+    runs-on: ubuntu-latest
+    environment:
+      name: test_|_staging_|_production
+    needs:
+    - step_job_3
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - name: Advanced settings
+      run: echo "Advanced"
+      timeout-minutes: 120
+    - name: Advanced settings
+      run: echo "Done"
+      id: after-script-1
+      if: "${{ always() }}"
+      timeout-minutes: 120
+  step_job_5:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_DATABASE: root
+          MYSQL_ROOT_PASSWORD: root
+    needs:
+    - step_job_4
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - name: Step using the services
+      run: |-
+        docker ps
+        mysql --version
+      timeout-minutes: 120
+  parallel_job_6:
+    runs-on: ubuntu-latest
+    needs:
+    - step_job_5
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - run: echo "I am from the original universe."
+      timeout-minutes: 120
+  parallel_job_7:
+    runs-on: ubuntu-latest
+    needs:
+    - step_job_5
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - run: echo "I am from the paralell universe."
+      timeout-minutes: 120

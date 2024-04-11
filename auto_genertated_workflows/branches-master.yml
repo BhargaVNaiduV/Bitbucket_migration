@@ -1,0 +1,14 @@
+name: branches-master
+on:
+  push:
+    branches: master
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  step_job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - run: echo "Runs only on commit to the master branch."
+      timeout-minutes: 120

@@ -1,0 +1,20 @@
+name: custom-name_of_the_pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      language:
+        type: string
+        required: true
+      server_host:
+        type: string
+        required: true
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  step_job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - run: echo "Hello ${{ inputs.server_host }}. Do you speak ${{ inputs.language }}?"
+      timeout-minutes: 120

@@ -1,0 +1,16 @@
+name: branches-fix
+on:
+  push:
+    branches: fix/*
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  step_job_1:
+    runs-on: ubuntu-latest
+    container:
+      image: openjdk:8
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - run: echo "Runs only on commit to branches that match the fix/* pattern."
+      timeout-minutes: 120

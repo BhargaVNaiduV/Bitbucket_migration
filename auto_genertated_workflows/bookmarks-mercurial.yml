@@ -1,0 +1,13 @@
+name: bookmarks-mercurial
+on:
+  workflow_dispatch:
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  step_job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - run: echo "I don't know Mercurial. Git was always enough for me."
+      timeout-minutes: 120

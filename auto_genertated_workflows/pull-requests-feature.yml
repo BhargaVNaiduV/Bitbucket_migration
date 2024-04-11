@@ -1,0 +1,14 @@
+name: pull-requests-feature
+on:
+  pull_request:
+    branches: feature/*
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  step_job_1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - run: echo "Hello world"
+      timeout-minutes: 120
