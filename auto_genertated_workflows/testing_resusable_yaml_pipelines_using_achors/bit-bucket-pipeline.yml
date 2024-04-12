@@ -1,0 +1,36 @@
+definitions:
+  steps:
+    - step: &build
+        name: Build microservices jar
+        script:
+          - mvn package
+        artifacts:
+          - target/**
+    - step: &build-react
+        name: Build React app
+        script:
+          - yarn install
+          - yarn run build
+    - step: &shiftleft-java
+        name: Analyze Java project with NG SAST
+        script:
+          - sl analyze --app ${BITBUCKET_REPO_SLUG} --tag branch=${BITBUCKET_BRANCH} --java --cpg target/my-app.jar
+    - step: &shiftleft-js
+        name: Analyze JS/TS project with NG SAST
+        script:
+          - sl analyze --app ${BITBUCKET_REPO_SLUG} --tag branch=${BITBUCKET_BRANCH} --js --cpg . --ts --babel
+
+pipelines:
+  pull-requests:
+    master:
+      - step: *build
+      - step: *build-react
+      - parallel:
+        - step: *shiftleft-java
+        - step: *shiftleft-js
+  branches:
+    feature/*:
+      - step: *build
+      - step:
+          <<: *shiftleft-java
+          trigger: manual
