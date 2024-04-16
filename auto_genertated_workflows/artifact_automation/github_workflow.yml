@@ -1,0 +1,67 @@
+name: branches-master
+on:
+  push:
+    branches: master
+env:
+  docker_username: "${{ secrets.docker_username }}"
+  docker_password: "${{ secrets.docker_password }}"
+jobs:
+  step_job_1:
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.8.4-openjdk-11
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - name: Cache maven
+      uses: actions/cache@v3.3.2
+      with:
+        key: "${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}"
+        path: "~/.m2/repository"
+    - name: Build Maven Artifact
+      run: mvn clean install
+    - uses: actions/upload-artifact@v4.1.0
+      with:
+        name: step_job_1
+        path: target/*.jar
+  step_job_2:
+    runs-on: ubuntu-latest
+    container:
+      image: atlassian/pipelines-awscli
+    needs:
+    - step_job_1
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - uses: actions/download-artifact@v4.1.0
+      with:
+        name: step_job_1
+#     # This item has no matching transformer
+#     - identifier: atlassian/aws-codeartifact-upload:0.2.1
+#       name: Upload Artifact to Repository
+#       variables:
+#         AWS_REGION: "$AWS_REGION"
+#         AWS_ACCESS_KEY_ID: "$AWS_ACCESS_KEY_ID"
+#         AWS_SECRET_ACCESS_KEY: "$AWS_SECRET_ACCESS_KEY"
+#         SOURCE_FILE: target/*.jar
+#         TARGET_REPOSITORY: your_repository_name
+#         TARGET_DOMAIN: your_domain_name
+#         TARGET_PACKAGE: your_package_name
+#         TARGET_NAME: your_artifact_name
+#         VERSION: '1.0'
+  step_job_3:
+    runs-on: ubuntu-latest
+    container:
+      image: docker:20.10.9
+    needs:
+    - step_job_2
+    steps:
+    - uses: actions/checkout@v4.1.0
+    - uses: actions/download-artifact@v4.1.0
+      with:
+        name: step_job_1
+    - name: Cache docker
+      uses: actions/cache@v3.3.2
+      with:
+        key: UPDATE_ME
+        path: UPDATE_ME
+    - name: Build Docker Image
+      run: docker build -t your_image_name:latest .

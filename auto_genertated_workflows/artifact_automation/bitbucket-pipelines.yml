@@ -1,0 +1,42 @@
+# Bitbucket Pipeline Configuration
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Build Maven Artifact
+          image: maven:3.8.4-openjdk-11
+          caches:
+            - maven
+          script:
+            - mvn clean install
+          artifacts:
+            - target/*.jar
+      
+      - step:
+          name: Upload Artifact to Repository
+          image: atlassian/pipelines-awscli
+          script:
+            - pipe: atlassian/aws-codeartifact-upload:0.2.1
+              variables:
+                AWS_REGION: $AWS_REGION
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                SOURCE_FILE: "target/*.jar"
+                TARGET_REPOSITORY: "your_repository_name"
+                TARGET_DOMAIN: "your_domain_name"
+                TARGET_PACKAGE: "your_package_name"
+                TARGET_NAME: "your_artifact_name"
+                VERSION: "1.0" # You may adjust the version as needed
+      
+      - step:
+          name: Build Docker Image
+          image: docker:20.10.9
+          caches:
+            - docker
+          services:
+            - docker
+          script:
+            - docker build -t your_image_name:latest .
+            # Additional steps for pushing the image to a registry if needed
+
